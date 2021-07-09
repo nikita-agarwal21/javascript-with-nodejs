@@ -1,0 +1,47 @@
+                //index.html
+                
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Humans - Dog Age</title>
+  </head>
+  <body>
+    <h1>check your dog age</h1>
+    <form method="POST">
+      <input type="text" name="n1" />
+      <button type="submit" name="submit">See your age</button>
+    </form>
+  </body>
+</html>
+
+
+
+
+
+        //index.js
+        
+        
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+const port = 8080;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+//data from html page will be encoded in url which is decoded here
+
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
+
+app.post("/", function (req, res) {
+  //req-contains data =>passed using body parser=>res is wht we get from d request
+  var age = Number(req.body.n1) / 15;
+
+  //explicit conversion(string -> number)
+  //the request of post method contains new parsed data
+
+  res.send("your age in dog years is: " + age + " dog years");
+});
+
+app.listen(port);
